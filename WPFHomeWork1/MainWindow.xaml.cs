@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFHomeWork1.Design;
 
 namespace WPFHomeWork1
 {
@@ -20,12 +21,15 @@ namespace WPFHomeWork1
     /// </summary>
     public partial class MainWindow : Window
     {
-        MainVM VM;
+        IMainVM VM;
 
         public MainWindow()
         {
             InitializeComponent();
-            VM = new MainVM();
+            VM =
+                new MainVM()
+                //FakeVmFactory.Create()
+                ;
             this.DataContext = VM;
         }
     }
