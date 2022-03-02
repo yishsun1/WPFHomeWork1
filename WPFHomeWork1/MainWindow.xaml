@@ -1,0 +1,133 @@
+﻿<Window x:Class="WPFHomeWork1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFHomeWork1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <local:VisibleConverter x:Key="visibleConverter"></local:VisibleConverter>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Background="Cornsilk">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="類型:" VerticalAlignment="Center" FontSize="25" Margin="10,0,0,0"/>
+                    <ComboBox  ItemsSource="{Binding StockTypeCollection}" SelectedItem="{Binding SelectedType}" FontSize="20" Margin="20,0,0,0" Width="200" Height="30"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                    <TextBlock Text="股號:" VerticalAlignment="Center" FontSize="25" Margin="10,0,0,0"/>
+                    <TextBox Text="{Binding ID}" Margin="20,0,0,0" Width="200" Height="30" FontSize="25"></TextBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="2">
+                    <TextBlock Text="名稱:" VerticalAlignment="Center" FontSize="25" Margin="10,0,0,0"/>
+                    <TextBox Text="{Binding Name}" Margin="20,0,0,0" Width="200" Height="30" FontSize="25"></TextBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="3">
+                    <TextBlock Text="單價:" VerticalAlignment="Center" FontSize="25" Margin="10,0,0,0"/>
+                    <TextBox Text="{Binding Price}"  Margin="20,0,0,0" Width="200" Height="30" FontSize="25" TextAlignment="Right"></TextBox>
+                    <Button Content="加入" Height="30" Width="50" Margin="20,0" Command="{Binding AddStockCommand}"/>
+                </StackPanel>
+            </Grid>
+            <Border Grid.Column="1" BorderBrush="Pink" BorderThickness="3" Background="DarkGray">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="類別:" VerticalAlignment="Center" FontSize="25" Visibility="{Binding Visible,Converter={StaticResource visibleConverter}}"/>
+                        <TextBlock Text="{Binding SelectedStock.Type}" VerticalAlignment="Center" FontSize="25"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1">
+                        <TextBlock Text="股號:" VerticalAlignment="Center" FontSize="25" Visibility="{Binding Visible,Converter={StaticResource visibleConverter}}"></TextBlock>
+                        <TextBlock Text="{Binding SelectedStock.ID}" VerticalAlignment="Center" FontSize="25"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2">
+                        <TextBlock Text="名稱:" VerticalAlignment="Center" FontSize="25" Visibility="{Binding Visible,Converter={StaticResource visibleConverter}}"></TextBlock>
+                        <TextBlock Text="{Binding SelectedStock.Name}" VerticalAlignment="Center" FontSize="25"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="3">
+                        <TextBlock Text="單價:" VerticalAlignment="Center" FontSize="25" Visibility="{Binding Visible,Converter={StaticResource visibleConverter}}"></TextBlock>
+                        <TextBlock Text="{Binding SelectedStock.Price}" VerticalAlignment="Center" FontSize="25"/>
+                    </StackPanel>
+
+                </Grid>
+            </Border>
+        </Grid>
+        <ListView Grid.Row="1" ItemsSource="{Binding StockCollection}" SelectedItem="{Binding SelectedStock}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn  Width="150">
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="類別" FontSize="25"></TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Type}" FontSize="20"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn  Width="150">
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="股號" FontSize="25"></TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ID}" FontSize="20"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="150">
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="名稱" FontSize="25"></TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" FontSize="20"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="150">
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="單價" FontSize="25"></TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Price,StringFormat={}{0:.00}}" FontSize="20"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>
