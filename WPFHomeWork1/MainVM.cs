@@ -9,7 +9,7 @@ using WPFHomeWork1.Model;
 
 namespace WPFHomeWork1
 {
-    public class MainVM : BaseViewModel
+    public class MainVM : BaseViewModel, IMainVM
     {
         private string _ID;
         public string ID
@@ -58,11 +58,11 @@ namespace WPFHomeWork1
         {
             get { return _SelectedStock; }
             set
-            { 
+            {
                 _SelectedStock = value;
                 if (value != null && !Visible)
                     Visible = true;
-                OnpPropertyChanged(); 
+                OnpPropertyChanged();
             }
         }
 
@@ -83,7 +83,7 @@ namespace WPFHomeWork1
 
         public MainVM()
         {
-            AddStockCommand = new BaseCommand(a => { AddStock();});
+            AddStockCommand = new BaseCommand(a => { AddStock(); });
             StockTypeCollection.Add("電子股");
             StockTypeCollection.Add("金融股");
         }
